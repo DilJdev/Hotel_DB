@@ -1,0 +1,78 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+/* ===== Panel de fondo ===== */
+.panel {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 15, 0, 0, 4);
+}
+
+/* ===== Título ===== */
+.tit {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+}
+
+/* ===== Textos de etiqueta ===== */
+.txt {
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+}
+
+/* ===== Entradas de texto ===== */
+.input {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10;
+    -fx-font-size: 13px;
+}
+
+.input:focused {
+    -fx-border-color: #f59e0b; /* Amarillo suave (similar al borde activo en la imagen) */
+    -fx-border-width: 2;
+    -fx-background-color: #fffefc;
+}
+
+/* ===== Botones ===== */
+.btnAceptar {
+    -fx-background-color: #0f172a;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8 18;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.btnAceptar:hover {
+    -fx-background-color: #1e293b;
+}
+
+.btnCancelar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8;
+    -fx-text-fill: #333333;
+    -fx-font-weight: normal;
+    -fx-padding: 8 18;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.btnCancelar:hover {
+    -fx-background-color: #f9fafb;
+}
+
+/* ===== Campos con error (opcional) ===== */
+.input:error {
+    -fx-border-color: #dc2626;
+}

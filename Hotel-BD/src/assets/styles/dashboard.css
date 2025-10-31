@@ -1,0 +1,98 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+/* Fondo del panel lateral (menú) */
+.men {
+    -fx-background-color: #0b0c25;
+    -fx-pref-width: 220px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0, 2, 2);
+}
+
+/* Botones del menú lateral */
+.menu_opciones {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-padding: 10 15;
+    -fx-cursor: hand;
+    -fx-background-radius: 8;
+}
+
+.menu_opciones:hover {
+    -fx-background-color: #1e2765;
+}
+
+/* Botón de cerrar sesión */
+.menu_cerrar {
+    -fx-background-color: #e63946;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-padding: 10 0;
+}
+
+.menu_cerrar:hover {
+    -fx-background-color: #b02a37;
+}
+
+/* Panel superior (barra con título del sistema) */
+.panel_superior {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10 20;
+    -fx-alignment: center-left;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+}
+
+.panel_superior Label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0b0c25;
+}
+
+/* Botón de menú (mostrar/ocultar) */
+.btn_menu {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 5;
+    -fx-shape: "M3 6h18M3 12h18M3 18h18"; /* ícono de tres líneas tipo "hamburguesa" */
+    -fx-border-color: transparent;
+}
+
+.btn_menu:hover {
+    -fx-background-color: #f2f3f5;
+    -fx-background-radius: 8;
+}
+
+.cbd_succeful {
+    -fx-background-color: #d4edda;        /* verde claro */
+    -fx-text-fill: #155724;               /* verde fuerte para el texto */
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-border-color: #c3e6cb;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 6px;
+}
+
+.cbd_error {
+    -fx-background-color: #f8d7da;        /* rojo claro */
+    -fx-text-fill: #721c24;               /* rojo fuerte para el texto */
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-border-color: #f5c6cb;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 6px;
+}
