@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="rootPane" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXML.DashboardController">
+   <children>
+      <AnchorPane fx:id="menupane" maxWidth="200.0" minWidth="200.0" styleClass="men" stylesheets="@../assets/styles/dashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button layoutX="30.0" layoutY="147.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="🏠 Dashboard" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button layoutY="179.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="👥 Huesped" />
+            <Button layoutY="211.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="🛏 Habitaciones" />
+            <Button layoutY="243.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="📝 Hospedaje" />
+            <Button layoutY="275.0" mnemonicParsing="false" onAction="#showPanelPersonal" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="👤 Personal" />
+            <Button fx:id="btnCerrarSesion" layoutY="554.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="48.0" prefWidth="200.0" styleClass="menu_cerrar" stylesheets="@../assets/styles/dashboard.css" text="↩ Cerrar Sesion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <Label fx:id="lblsucceful" layoutX="522.0" layoutY="528.0" prefHeight="42.0" prefWidth="354.0" styleClass="cbd_succeful" stylesheets="@../assets/styles/dashboard.css" text="Conexion a la base de Datos Exitosa" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label fx:id="lblerror" layoutX="542.0" layoutY="556.0" prefHeight="42.0" prefWidth="354.0" styleClass="cbd_error" stylesheets="@../assets/styles/dashboard.css" text="Error al intentar conectar a la base de datos" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <AnchorPane fx:id="panelesContainer" maxHeight="670.0" minHeight="670.0" minWidth="900.0" style="-fx-border-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+      <AnchorPane fx:id="bar" prefHeight="30.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="btnmenu" layoutX="14.0" maxHeight="394.0" maxWidth="235.0" mnemonicParsing="false" onAction="#MostrarMenu" prefHeight="30.0" prefWidth="25.0" styleClass="btn_menu" stylesheets="@../assets/styles/dashboard.css" text="☰" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

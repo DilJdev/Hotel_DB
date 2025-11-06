@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" minHeight="500.0" minWidth="700.0" prefHeight="634.0" prefWidth="763.0" styleClass="panel" stylesheets="@../../assets/styles/nuevopersonalmod.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/24.0.1" fx:controller="Controler.FXML.NuevoPersonalModController">
+   <children>
+      <Label layoutX="22.0" layoutY="31.0" styleClass="tit" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="Agregar Nuevo Personal" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <TextField fx:id="txtNombre" layoutX="14.0" layoutY="79.0" prefHeight="36.0" prefWidth="303.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.leftAnchor="20.0" />
+      <Label layoutX="20.0" layoutY="62.0" styleClass="txt" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="Nombre Completo" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="595.0" />
+      <TextField fx:id="txtAP" layoutX="351.0" layoutY="79.0" prefHeight="36.0" prefWidth="303.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.rightAnchor="20.0" />
+      <Label layoutX="392.0" layoutY="62.0" styleClass="txt" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="Apellido Paterno" AnchorPane.leftAnchor="390.0" />
+      <TextField fx:id="txtAM" layoutX="20.0" layoutY="159.0" prefHeight="36.0" prefWidth="303.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.leftAnchor="20.0" />
+      <Label layoutX="26.0" layoutY="142.0" styleClass="txt" text="Apellido Materno" AnchorPane.leftAnchor="20.0" />
+      <TextField fx:id="txtCI" layoutX="365.0" layoutY="159.0" prefHeight="36.0" prefWidth="303.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.rightAnchor="20.0" />
+      <Label layoutX="406.0" layoutY="142.0" styleClass="txt" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="Cedula de Identidad" AnchorPane.leftAnchor="390.0" />
+      <TextField fx:id="txtTel" layoutX="20.0" layoutY="232.0" prefHeight="36.0" prefWidth="303.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.leftAnchor="20.0" />
+      <Label layoutX="26.0" layoutY="215.0" styleClass="txt" text="Telefono" AnchorPane.leftAnchor="20.0" />
+      <Label layoutX="396.0" layoutY="215.0" styleClass="txt" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="Tipo Personal" AnchorPane.leftAnchor="390.0" />
+      <TextField fx:id="txtDireccion" layoutX="20.0" layoutY="306.0" prefHeight="36.0" prefWidth="678.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <Label layoutX="20.0" layoutY="282.0" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="Direccion" AnchorPane.leftAnchor="20.0" />
+      <TextField fx:id="txtUsuario" layoutX="20.0" layoutY="366.0" prefHeight="36.0" prefWidth="303.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.leftAnchor="20.0" />
+      <Label layoutX="26.0" layoutY="349.0" styleClass="txt" text="Usuario" AnchorPane.leftAnchor="20.0" />
+      <TextField fx:id="txtPassword" layoutX="382.0" layoutY="366.0" prefHeight="36.0" prefWidth="303.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.rightAnchor="20.0" />
+      <Label layoutX="395.0" layoutY="349.0" styleClass="txt" text="Contraseña" AnchorPane.leftAnchor="395.0" />
+      <Button fx:id="btnCancelar" layoutX="626.0" layoutY="443.0" mnemonicParsing="false" onAction="#cancelar" styleClass="btnCancelar" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="CANCELAR" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="15.0" />
+      <Button fx:id="btnAceptar" layoutX="517.0" layoutY="443.0" mnemonicParsing="false" onAction="#aceptar" prefHeight="35.0" prefWidth="102.0" styleClass="btnAceptar" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="ACEPTAR" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="137.0" />
+      <ComboBox fx:id="cbPersonal" layoutX="420.0" layoutY="230.0" prefHeight="41.0" prefWidth="303.0" promptText="Seleccionar" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.rightAnchor="20.0" />
+      <Label layoutX="16.0" layoutY="420.0" styleClass="txt" stylesheets="@../../assets/styles/nuevopersonalmod.css" text="Estado" AnchorPane.leftAnchor="20.0" />
+      <ComboBox fx:id="cbestado" layoutX="40.0" layoutY="435.0" prefHeight="41.0" prefWidth="303.0" promptText="Seleccionar" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.leftAnchor="20.0" />
+      <Label layoutX="420.0" layoutY="420.0" styleClass="txt" text="Fecha" AnchorPane.leftAnchor="390.0" />
+      <DatePicker fx:id="fecha" layoutX="420.0" layoutY="435.0" prefHeight="36.0" prefWidth="303.0" styleClass="input" stylesheets="@../../assets/styles/nuevopersonalmod.css" AnchorPane.rightAnchor="20.0" />
+   </children>
+</AnchorPane>

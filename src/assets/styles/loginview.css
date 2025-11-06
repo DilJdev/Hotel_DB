@@ -1,0 +1,70 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+/* Fondo del panel principal */
+.panel {
+    -fx-background-color: #ffffff;
+    -fx-padding: 40;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 3);
+}
+
+/* Título principal */
+.tit {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0b0c25;
+}
+
+/* Subtítulo (puedes aplicarlo a un Label adicional si tienes) */
+.label-sub {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4069E5;
+}
+
+/* Campos de texto */
+.txtUser, #txtContra {
+    -fx-background-color: #f9fafb;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10 15;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #9ca3af;
+}
+
+.txtUser:focused, #txtContra:focused {
+    -fx-border-color: #1e3a8a;
+    -fx-border-width: 1.5;
+    -fx-background-color: #ffffff;
+}
+
+/* Botón principal */
+.btnIniciar {
+    -fx-background-color: #0b0c25;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-padding: 10 0;
+}
+
+.btnIniciar:hover {
+    -fx-background-color: #1e2765;
+}
+
+/* Texto de registro */
+.label-link {
+    -fx-text-fill: #4069E5;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.label-link:hover {
+    -fx-underline: true;
+}
