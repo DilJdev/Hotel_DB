@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import java.net.URL?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXML.PersonalViewController">
+<AnchorPane id="AnchorPane" prefHeight="455.0" prefWidth="700.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="Controler.FXML.HuespedViewController">
+    <stylesheets>
+        <URL value="@/assets/styles/huespedview.css" />
+    </stylesheets>
    <children>
-      <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#abrirModal" prefHeight="34.0" prefWidth="110.0" styleClass="btnNuevo" stylesheets="@../assets/styles/nuevopersonalmod.css" text="Agregar Nuevo" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <TableView fx:id="tablaPersonal" minWidth="700.0" stylesheets="@../assets/styles/personalview.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
+      <TableView fx:id="tablaPersonal" layoutX="10.0" layoutY="10.0" minWidth="700.0" stylesheets="@../assets/styles/personalview.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
          <columns>
             <TableColumn fx:id="colID" prefWidth="36.0" text="ID" />
             <TableColumn fx:id="colCedula" prefWidth="82.0" text="CI" />
@@ -25,6 +26,5 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField layoutX="14.0" layoutY="23.0" prefHeight="34.0" prefWidth="391.0" promptText="🔎 Buscar Por Nombre" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>

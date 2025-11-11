@@ -134,6 +134,27 @@ public class DashboardController implements Initializable {
         Stage ventanaActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         ventanaActual.close();
     }
+
+    @FXML
+    private void showPanelHabitacion(ActionEvent event) throws IOException {
+        try {
+            // Cargar el nuevo FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/HabitacionView.fxml"));
+            Parent nuevoPanel = loader.load();
+
+            // Limpiar el contenedor y agregar el nuevo panel
+            panelesContainer.getChildren().setAll(nuevoPanel);
+
+            // Ajustar el nuevo panel al tamaño del contenedor
+            AnchorPane.setTopAnchor(nuevoPanel, 0.0);
+            AnchorPane.setBottomAnchor(nuevoPanel, 0.0);
+            AnchorPane.setLeftAnchor(nuevoPanel, 0.0);
+            AnchorPane.setRightAnchor(nuevoPanel, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     
 }
