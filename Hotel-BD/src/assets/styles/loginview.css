@@ -7,9 +7,13 @@
 }
 /* Fondo del panel principal */
 .panel {
-    -fx-background-color: #ffffff;
-    -fx-padding: 40;
+     -fx-background-color: rgba(255, 255, 255, 0.25); /* Fondo semi-transparente */
     -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: rgba(255, 255, 255, 0.4);      /* Borde sutil tipo vidrio */
+    -fx-border-width: 1;
+    -fx-effect: gaussian-blur(100);                   /* Simula el vidrio borroso */
+    -fx-padding: 15;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 3);
 }
 

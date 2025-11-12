@@ -5,6 +5,7 @@
  */
 package Controler.FXML;
 
+import Controler.Table.crtHuesped;
 import com.mysql.jdbc.Connection;
 import hotel.bd.Conexion;
 import java.io.IOException;
@@ -52,6 +53,8 @@ public class DashboardController implements Initializable {
     private Label lblsucceful;
     @FXML
     private Label lblerror;
+    @FXML
+    private Label lblHuespedes;
 
     /**
      * Initializes the controller class.
@@ -67,6 +70,8 @@ public class DashboardController implements Initializable {
         }else{
             pref.showNotification(lblsucceful, lblerror, false);
         }
+        crtHuesped contar=new crtHuesped();
+        lblHuespedes.setText(String.valueOf(contar.contarTotal()));
     }   
 
     @FXML

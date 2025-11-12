@@ -5,19 +5,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="563.0" prefWidth="900.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/24.0.1" fx:controller="Controler.FXML.LoginViewController">
+<AnchorPane id="AnchorPane" prefHeight="563.0" prefWidth="900.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXML.LoginViewController">
     <stylesheets>
         <URL value="@/assets/styles/loginview.css" />
     </stylesheets>
    <children>
-      <AnchorPane layoutX="173.0" layoutY="112.0" styleClass="panel" stylesheets="@../assets/styles/loginview.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="50.0">
+      <ImageView layoutY="74.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../assets/Images/ChatGPT%20Image%2011%20nov%202025,%2021_04_21.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="183.0" layoutY="122.0" styleClass="panel" stylesheets="@../assets/styles/loginview.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="50.0">
          <children>
             <Button fx:id="btnIniciar" layoutX="216.0" layoutY="377.0" mnemonicParsing="false" onAction="#iniciarSesion" styleClass="btnIniciar" stylesheets="@../assets/styles/loginview.css" text="Iniciar Sesion" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
-            <PasswordField layoutX="115.0" layoutY="232.0" prefHeight="51.0" prefWidth="480.0" promptText="Contraseña" styleClass="txtContra" stylesheets="@../assets/styles/loginview.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-            <TextField layoutX="84.0" layoutY="152.0" prefHeight="51.0" prefWidth="480.0" promptText="Usuario" styleClass="txtUser" stylesheets="@../assets/styles/loginview.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <PasswordField fx:id="txtcontra" layoutX="115.0" layoutY="232.0" prefHeight="51.0" prefWidth="480.0" promptText="Contraseña" styleClass="txtContra" stylesheets="@../assets/styles/loginview.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <TextField fx:id="txtusuario" layoutX="84.0" layoutY="152.0" prefHeight="51.0" prefWidth="480.0" promptText="Usuario" styleClass="txtUser" stylesheets="@../assets/styles/loginview.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
             <Label layoutX="152.0" layoutY="44.0" prefHeight="34.0" prefWidth="147.0" styleClass="tit" stylesheets="@../assets/styles/loginview.css" text="Sistema Hotel" textAlignment="CENTER" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" />
+            <Label layoutX="220.0" layoutY="82.0" prefHeight="38.0" prefWidth="338.0" styleClass="tit" text="PALACIO IMPERIAL" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="80.0" />
+            <Label fx:id="mensaje" layoutX="123.0" layoutY="292.0" prefHeight="17.0" prefWidth="281.0" visible="false" />
          </children>
       </AnchorPane>
    </children>

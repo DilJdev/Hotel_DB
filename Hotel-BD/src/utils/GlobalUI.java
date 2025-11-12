@@ -5,6 +5,11 @@
  */
 package utils;
 
+import com.mysql.jdbc.Connection;
+import hotel.bd.Conexion;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
@@ -89,5 +94,43 @@ public class GlobalUI {
             
 
         }
+       
     }
+    public boolean validarLogin(String usuario,String password,javafx.scene.control.TextField CampoUsuario,
+            javafx.scene.control.PasswordField CampoContra,javafx.scene.control.Label message) throws SQLException{
+           Connection con=Conexion.conectar();
+           boolean ResultadoLogin=false;
+           int exist=0;
+           String sql="SELECT COUNT(*) AS existe FROM personal WHERE usuario=? AND password=?";
+           PreparedStatement ps = con.prepareStatement(sql);
+           
+           ps.setString(1, usuario);
+           ps.setString(2, password);
+           ResultSet rs=ps.executeQuery();
+           
+           while (rs.next()) {
+            exist=rs.getInt("existe");
+           
+        }
+           if (exist==0) {
+               System.out.println("no existen");
+               message.setStyle("-fx-text-fill: red;");
+               message.setVisible(true);
+               message.setText("No se encontraron registros de los datos ingresados intente de nuevo");
+               
+               CampoUsuario.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+               CampoContra.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+               
+        }else if (exist==1) {
+               System.out.println("existen");
+               
+               message.setText(null);
+               message.setVisible(false);
+               
+               CampoUsuario.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
+               CampoContra.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
+               ResultadoLogin = true;
+        }
+           return ResultadoLogin;
+       }
 }

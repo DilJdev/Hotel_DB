@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="rootPane" maxHeight="700.0" maxWidth="900.0" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXML.DashboardController">
    <children>
@@ -16,12 +17,28 @@
             <Button fx:id="btnCerrarSesion" layoutY="554.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="48.0" prefWidth="200.0" styleClass="menu_cerrar" stylesheets="@../assets/styles/dashboard.css" text="↩ Cerrar Sesion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="panelesContainer" layoutX="419.0" layoutY="201.0" prefHeight="109.0" prefWidth="95.0" style="-fx-border-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+      <AnchorPane fx:id="panelesContainer" layoutX="200.0" layoutY="15.0" prefHeight="109.0" prefWidth="95.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <Label layoutX="25.0" layoutY="38.0" text="Bienvenido al sistema" />
+            <AnchorPane layoutX="25.0" layoutY="74.0" maxHeight="100.0" maxWidth="200.0" minHeight="100.0" minWidth="200.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+               <children>
+                  <Label layoutX="8.0" layoutY="14.0" text="Huespedes" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="lblHuespedes" layoutX="31.0" layoutY="44.0" prefHeight="42.0" prefWidth="48.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="20.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="245.0" layoutY="80.0" maxHeight="100.0" maxWidth="200.0" minHeight="100.0" minWidth="200.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="80.0" />
+            <AnchorPane layoutX="255.0" layoutY="90.0" maxHeight="100.0" maxWidth="200.0" minHeight="100.0" minWidth="200.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" AnchorPane.leftAnchor="460.0" AnchorPane.topAnchor="80.0" />
+         </children></AnchorPane>
       <Label fx:id="lblsucceful" layoutX="522.0" layoutY="528.0" prefHeight="42.0" prefWidth="354.0" styleClass="cbd_succeful" stylesheets="@../assets/styles/dashboard.css" text="Conexion a la base de Datos Exitosa" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Label fx:id="lblerror" layoutX="542.0" layoutY="556.0" prefHeight="42.0" prefWidth="354.0" styleClass="cbd_error" stylesheets="@../assets/styles/dashboard.css" text="Error al intentar conectar a la base de datos" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <AnchorPane fx:id="bar" prefHeight="30.0" prefWidth="700.0" style="-fx-border-color: red;" AnchorPane.bottomAnchor="670.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="bar" prefHeight="30.0" prefWidth="700.0" AnchorPane.bottomAnchor="670.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="btnmenu" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#MostrarMenu" text="☰" />
+            <Label layoutX="55.0" layoutY="6.0" prefHeight="30.0" prefWidth="336.0" text="Gestion de Hoteleria &quot;Palacio Imperial&quot;" textOverrun="CENTER_WORD_ELLIPSIS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Bodoni MT" size="19.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
