@@ -5,6 +5,7 @@
  */
 package Controler.FXML;
 
+import Controler.Table.crtHabitacion;
 import Controler.Table.crtHuesped;
 import com.mysql.jdbc.Connection;
 import hotel.bd.Conexion;
@@ -55,6 +56,8 @@ public class DashboardController implements Initializable {
     private Label lblerror;
     @FXML
     private Label lblHuespedes;
+    @FXML
+    private Label lblhl;
 
     /**
      * Initializes the controller class.
@@ -72,6 +75,9 @@ public class DashboardController implements Initializable {
         }
         crtHuesped contar=new crtHuesped();
         lblHuespedes.setText(String.valueOf(contar.contarTotal()));
+        
+        crtHabitacion crth=new crtHabitacion();
+        lblhl.setText(String.valueOf(crth.contarHabitacionesLibres()));
     }   
 
     @FXML
@@ -145,6 +151,48 @@ public class DashboardController implements Initializable {
         try {
             // Cargar el nuevo FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/HabitacionView.fxml"));
+            Parent nuevoPanel = loader.load();
+
+            // Limpiar el contenedor y agregar el nuevo panel
+            panelesContainer.getChildren().setAll(nuevoPanel);
+
+            // Ajustar el nuevo panel al tamaño del contenedor
+            AnchorPane.setTopAnchor(nuevoPanel, 0.0);
+            AnchorPane.setBottomAnchor(nuevoPanel, 0.0);
+            AnchorPane.setLeftAnchor(nuevoPanel, 0.0);
+            AnchorPane.setRightAnchor(nuevoPanel, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showpanelhuesped(ActionEvent event) {
+        try {
+            // Cargar el nuevo FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/HuespedView.fxml"));
+            Parent nuevoPanel = loader.load();
+
+            // Limpiar el contenedor y agregar el nuevo panel
+            panelesContainer.getChildren().setAll(nuevoPanel);
+
+            // Ajustar el nuevo panel al tamaño del contenedor
+            AnchorPane.setTopAnchor(nuevoPanel, 0.0);
+            AnchorPane.setBottomAnchor(nuevoPanel, 0.0);
+            AnchorPane.setLeftAnchor(nuevoPanel, 0.0);
+            AnchorPane.setRightAnchor(nuevoPanel, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showpanelhospedaje(ActionEvent event) {
+        try {
+            // Cargar el nuevo FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/HospedajeView.fxml"));
             Parent nuevoPanel = loader.load();
 
             // Limpiar el contenedor y agregar el nuevo panel

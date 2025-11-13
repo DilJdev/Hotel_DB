@@ -84,6 +84,52 @@ public class crtpersonal {
        }
        return lista;
 }
+   
+public ObservableList<String> obtenerPersonal() {
+    ObservableList<String> lista = FXCollections.observableArrayList();
+    String sql = "SELECT nombre, paterno, materno FROM personal WHERE estado = 'Activo'";
+    
+    try (Connection con = Conexion.conectar();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        while (rs.next()) {
+            String nombre = rs.getString("nombre");
+            String paterno = rs.getString("paterno");
+            String materno = rs.getString("materno");
+            
+            // Formato: "Nombre Paterno Materno"
+            String nombreCompleto = nombre + " " + paterno + 
+                                  (materno != null ? " " + materno : "");
+            lista.add(nombreCompleto);
+        }
+        System.out.println("Personal cargado exitosamente");
+        con.close();
+    } catch (SQLException e) {
+        System.out.println("Error al cargar personal: " + e.getMessage());
+    }
+    
+    return lista;
+}
 
-
+public int obtenerIdPersonal(String nombreCompleto) {
+    int id = 0;
+    String sql = "SELECT idpersonal FROM personal WHERE CONCAT(nombre, ' ', paterno, ' ', IFNULL(materno, '')) = ?";
+    
+    try (Connection con = Conexion.conectar();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, nombreCompleto.trim());
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            id = rs.getInt("idpersonal");
+        }
+        
+    } catch (SQLException e) {
+        System.out.println("Error al obtener ID personal: " + e.getMessage());
+    }
+    
+    return id;
+}
 }

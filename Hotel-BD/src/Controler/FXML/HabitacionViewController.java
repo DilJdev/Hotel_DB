@@ -5,6 +5,9 @@
  */
 package Controler.FXML;
 
+import Controler.Table.crtHabitacion;
+import Controler.Table.crtTipoHabitacion;
+import Model.mdlHabitacion;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,8 +18,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,15 +33,17 @@ import javafx.stage.Stage;
 public class HabitacionViewController implements Initializable {
 
     @FXML
-    private TableView<?> tablaPersonal;
-    @FXML
-    private TableColumn<?, ?> colID;
-    @FXML
-    private TableColumn<?, ?> conPaterno;
-    @FXML
-    private TableColumn<?, ?> colFecha;
+    private TableView<mdlHabitacion> tablaPersonal;
     @FXML
     private Button btnNuevo;
+    @FXML
+    private TableColumn<mdlHabitacion, String> colNumHabitacion;
+    @FXML
+    private TableColumn<mdlHabitacion, String> colEstado;
+    @FXML
+    private TableColumn<mdlHabitacion, String> colIdTipoHabitacion;
+    @FXML
+    private ComboBox<String> cbbuscar;
 
     /**
      * Initializes the controller class.
@@ -44,6 +51,13 @@ public class HabitacionViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        colNumHabitacion.setCellValueFactory(new PropertyValueFactory<>("numhabitacion"));
+    colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+    colIdTipoHabitacion.setCellValueFactory(new PropertyValueFactory<>("idtipohabitacion"));
+        crtHabitacion ver=new crtHabitacion();
+    tablaPersonal.setItems(ver.obtenerHabitaciones());
+    crtTipoHabitacion obtener=new crtTipoHabitacion();
+        cbbuscar.setItems(obtener.obtenerTiposHabitacion());
     }    
 
     @FXML
@@ -68,6 +82,12 @@ public class HabitacionViewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void buscar(ActionEvent event) {
+        crtHabitacion buscar=new crtHabitacion();
+        tablaPersonal.setItems(buscar.obtenerHabitacionesPorTipo(cbbuscar.getSelectionModel().getSelectedIndex()+1));
     }
     
 }

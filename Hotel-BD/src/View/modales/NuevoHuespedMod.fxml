@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="Controler.FXML.NuevoHuespedModController">
+    <stylesheets>
+        <URL value="@/assets/styles/nuevohuespedmod.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="35.0" layoutY="39.0" text="Nuevo Huesped" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0" />
+      <TextField fx:id="txtNombre" layoutX="27.0" layoutY="76.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="310.0" />
+      <TextField fx:id="txtpaterno" layoutX="320.0" layoutY="76.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="10.0" />
+      <TextField fx:id="txtMaterno" layoutX="10.0" layoutY="136.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="310.0" />
+      <TextField fx:id="txtci" layoutX="308.0" layoutY="136.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="10.0" />
+      <Label layoutX="14.0" layoutY="59.0" text="Nombre Completo" AnchorPane.leftAnchor="10.0" />
+      <Label layoutX="312.0" layoutY="59.0" text="Apellido Paterno" AnchorPane.rightAnchor="200.0" />
+      <Label layoutX="6.0" layoutY="119.0" text="Apellido Materno" AnchorPane.leftAnchor="10.0" />
+      <Label layoutX="309.0" layoutY="119.0" text="Carnet De Identidad" AnchorPane.rightAnchor="180.0" />
+      <DatePicker fx:id="datef" layoutX="6.0" layoutY="186.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="310.0" />
+      <Label layoutX="14.0" layoutY="169.0" text="Fecha de Nacimiento" AnchorPane.leftAnchor="10.0" />
+      <TextField fx:id="txttel" layoutX="311.0" layoutY="186.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="10.0" />
+      <Label layoutX="309.0" layoutY="169.0" text="Telefono" AnchorPane.rightAnchor="240.0" />
+      <Label layoutX="10.0" layoutY="221.0" text="Direccion" AnchorPane.leftAnchor="10.0" />
+      <TextField fx:id="txtdir" layoutX="11.0" layoutY="238.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Label layoutX="218.0" layoutY="267.0" text="Tipo de Huesped" AnchorPane.leftAnchor="210.0" />
+      <ComboBox fx:id="cbpais" layoutX="412.0" layoutY="284.0" onAction="#obtenerid" prefHeight="25.0" prefWidth="219.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="40.0" />
+      <Label layoutX="366.0" layoutY="267.0" text="Pais" AnchorPane.leftAnchor="365.0" />
+      <ComboBox fx:id="cbtipo" layoutX="215.0" layoutY="284.0" prefHeight="25.0" prefWidth="143.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="247.0" />
+      <AnchorPane fx:id="panelAñadir" layoutX="9.0" layoutY="332.0" prefHeight="109.0" prefWidth="227.0" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="364.0">
+         <children>
+            <TextField fx:id="txtpais" layoutX="10.0" layoutY="42.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Label layoutX="14.0" layoutY="14.0" text="Registrar Nuevo Pais" />
+            <Button layoutX="278.0" layoutY="79.0" mnemonicParsing="false" onAction="#btninsertar" text="Registrar" AnchorPane.rightAnchor="10.0" />
+         </children>
+      </AnchorPane>
+      <Button layoutX="528.0" layoutY="447.0" mnemonicParsing="false" onAction="#insertar" text="Aceptar" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0" />
+      <ToggleButton fx:id="btnmas" layoutX="574.0" layoutY="284.0" mnemonicParsing="false" onAction="#verañadir" text="+" AnchorPane.rightAnchor="5.0" />
+      <Label layoutX="11.0" layoutY="267.0" text="Profesion" AnchorPane.leftAnchor="10.0" />
+      <ComboBox fx:id="cbprofesion" layoutX="18.0" layoutY="284.0" prefHeight="25.0" prefWidth="188.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="402.0" />
+      <RadioButton fx:id="casado" layoutX="136.0" layoutY="324.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="65.0" text="Casado" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="385.0">
+         <toggleGroup>
+            <ToggleGroup fx:id="civil" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="soltero" layoutX="62.0" layoutY="324.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="65.0" text="Soltero" toggleGroup="$civil" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="455.0" />
+      <Label layoutX="210.0" layoutY="324.0" text="Procedencia" AnchorPane.leftAnchor="290.0" />
+      <ComboBox fx:id="cbprocedencia" layoutX="367.0" layoutY="320.0" prefHeight="25.0" prefWidth="195.0" AnchorPane.rightAnchor="38.0" />
+      <Label layoutX="3.0" layoutY="324.0" text="Estado  Civil" />
+      <ToggleButton fx:id="btnmas2" layoutX="571.0" layoutY="320.0" mnemonicParsing="false" onAction="#verañadir2" text="+" AnchorPane.rightAnchor="5.0" />
+      <AnchorPane fx:id="panelAñadir2" layoutX="262.0" layoutY="371.0" prefHeight="109.0" prefWidth="227.0" visible="false">
+         <children>
+            <TextField fx:id="txtpro" layoutX="10.0" layoutY="42.0" prefHeight="25.0" prefWidth="278.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Label layoutX="14.0" layoutY="14.0" text="Registrar Nueva Procedencia" />
+            <Button layoutX="278.0" layoutY="79.0" mnemonicParsing="false" onAction="#btninserta2" text="Registrar" AnchorPane.rightAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
