@@ -11,7 +11,6 @@ import Controler.Table.crtHuesped;
 import Controler.Table.crtTipoHabitacion;
 import Controler.Table.crtpersonal;
 import Model.mdlHospedaje;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -19,6 +18,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -27,6 +28,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import utils.GlobalUI;
 
 /**
  * FXML Controller class
@@ -60,6 +63,11 @@ public class NuevoHospedajeModController implements Initializable {
     private AnchorPane huesped;
     @FXML
     private ComboBox<String> cbhuesped;
+    
+    @FXML
+    private AnchorPane anchorPane;
+    
+    private GlobalUI globalUI;
 
     /**
      * Initializes the controller class.
@@ -84,6 +92,8 @@ public class NuevoHospedajeModController implements Initializable {
             calcularTotal();
         });
 
+        globalUI = new GlobalUI();
+        globalUI.AjustarTamano2(anchorPane);
     }
 
     @FXML
@@ -131,29 +141,84 @@ public class NuevoHospedajeModController implements Initializable {
 
     @FXML
     private void insertar(ActionEvent event) {
-        mdlHospedaje mdl=new mdlHospedaje();
-        crtHospedaje crth=new crtHospedaje();
-        crtpersonal crtp=new crtpersonal();
-        crtHuesped crthu=new crtHuesped();
-        
-        mdl.setFechaingreso(Date.valueOf(dpIngreso.getValue()));
-        mdl.setFechasalida(Date.valueOf(dpSalida.getValue()));
-        mdl.setHoraingreso(txthi.getText());
-        mdl.setHorasalida(txths.getText());
-        mdl.setTotal(Double.valueOf(txttotal.getText()));
-        mdl.setIdpersonal(crtp.obtenerIdPersonal(cbpersonal.getSelectionModel().getSelectedItem()));
-        mdl.setIdnumh(Integer.valueOf(txtnum.getText()));
-        
+        mdlHospedaje mdl = new mdlHospedaje();
+        crtHospedaje crth = new crtHospedaje();
+        crtpersonal crtp = new crtpersonal();
+        crtHuesped crthu = new crtHuesped();
+        crtHabitacion crthab = new crtHabitacion();
+
+        java.time.LocalDate fi = dpIngreso.getValue();
+        java.time.LocalDate fs = dpSalida.getValue();
+        String hi = txthi.getText();
+        String hs = txths.getText();
+        String tipo = cbtipo.getSelectionModel().getSelectedItem();
+        String num = txtnum.getText();
+        String personalSel = cbpersonal.getSelectionModel().getSelectedItem();
+        String totalTexto = txttotal.getText();
+
+        boolean valido = globalUI.validarCamposNuevoHospedaje(
+                fi, fs,
+                hi, hs,
+                tipo,
+                num,
+                personalSel,
+                totalTexto
+        );
+
+        globalUI.marcarErroresNuevoHospedaje(
+                fi, fs,
+                hi, hs,
+                tipo,
+                num,
+                personalSel,
+                totalTexto,
+                dpIngreso,
+                dpSalida,
+                txthi,
+                txths,
+                cbtipo,
+                txtnum,
+                cbpersonal,
+                txttotal
+        );
+
+        if (!valido) return;
+
+        mdl.setFechaingreso(Date.valueOf(fi));
+        mdl.setFechasalida(Date.valueOf(fs));
+        mdl.setHoraingreso(hi);
+        mdl.setHorasalida(hs);
+        mdl.setTotal(Double.valueOf(totalTexto));
+        mdl.setIdpersonal(crtp.obtenerIdPersonal(personalSel));
+        mdl.setIdnumh(Integer.valueOf(num));
+
         crth.añadirHospedaje(mdl);
+        // Marcar habitación como ocupada
+        crthab.actualizarEstado(Integer.valueOf(num), "Ocupado");
         
+        // Cerrar modal
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+
         huesped.setVisible(true);
         cbhuesped.setItems(crthu.obtenerNombresHuesped());
     }
 
     @FXML
     private void añadirFinal(ActionEvent event) {
-        crtHospedaje crth=new crtHospedaje();
-        crtHuesped hu=new crtHuesped();
-        crth.insertarHospedajeHuesped(crth.obtenerUltimoIdHospedaje(), hu.obtenerIdHuesped(cbhuesped.getSelectionModel().getSelectedItem()));
+        crtHospedaje crth = new crtHospedaje();
+        crtHuesped hu = new crtHuesped();
+        String nombreH = cbhuesped.getSelectionModel().getSelectedItem();
+
+        if (nombreH == null || nombreH.trim().isEmpty()) {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+            alert.setTitle("Seleccionar huésped");
+            alert.setHeaderText("Falta seleccionar huésped");
+            alert.setContentText("Debe seleccionar un huésped para asociarlo al hospedaje.");
+            alert.showAndWait();
+            return;
+        }
+
+        crth.insertarHospedajeHuesped(crth.obtenerUltimoIdHospedaje(), hu.obtenerIdHuesped(nombreH));
     }
 }

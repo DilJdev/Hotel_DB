@@ -18,7 +18,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import utils.GlobalUI;
 
 /**
  * FXML Controller class
@@ -53,6 +55,11 @@ public class NuevoPersonalModController implements Initializable {
     private ComboBox<String> cbestado;
     @FXML
     private DatePicker fecha;
+    
+    @FXML
+    private AnchorPane anchorPane;
+
+    private GlobalUI globalUI;
 
     /**
      * Initializes the controller class.
@@ -65,9 +72,8 @@ public class NuevoPersonalModController implements Initializable {
         
         cbestado.getItems().clear();
         cbestado.getItems().addAll("Activo", "Inactivo");
-        
-
-
+        globalUI = new GlobalUI();
+        globalUI.AjustarTamano2(anchorPane);
     }    
 
     @FXML
@@ -78,22 +84,57 @@ public class NuevoPersonalModController implements Initializable {
 
     @FXML
     private void aceptar(ActionEvent event) {
-        mdlpersonal insertar=new mdlpersonal();
-        crtpersonal execute=new crtpersonal();
-        
-        insertar.setNombre(txtNombre.getText());
-        insertar.setPaterno(txtAP.getText());
-        insertar.setMaterno(txtAM.getText());
-        insertar.setCedulaidentidad(txtCI.getText());
-        insertar.setTelefono(txtTel.getText());
-        insertar.setDireccion(txtDireccion.getText());
-        insertar.setEstado(cbestado.getValue());
-        insertar.setFechaingreso(Date.valueOf(fecha.getValue()));
-        insertar.setTipperonal(cbPersonal.getValue());
-        insertar.setUsuario(txtUsuario.getText());
-        insertar.setPassword(txtPassword.getText());
-        
-        execute.guardarPersonal(insertar);
+        try {
+            String nombre = txtNombre.getText();
+            String paterno = txtAP.getText();
+            String materno = txtAM.getText();
+            String ci = txtCI.getText();
+            String tel = txtTel.getText();
+            String dir = txtDireccion.getText();
+            String usuario = txtUsuario.getText();
+            String pass = txtPassword.getText();
+            String tipo = cbPersonal.getValue();
+            String estado = cbestado.getValue();
+            java.time.LocalDate fIng = fecha.getValue();
+
+            boolean valido = globalUI.validarCamposPersonal(
+                    nombre, paterno, materno, ci, tel, dir,
+                    usuario, pass, tipo, estado, fIng
+            );
+
+            globalUI.marcarErroresPersonal(
+                    nombre, paterno, materno, ci, tel, dir,
+                    usuario, pass, tipo, estado, fIng,
+                    txtNombre, txtAP, txtAM, txtCI, txtTel,
+                    txtDireccion, txtUsuario, txtPassword,
+                    cbPersonal, cbestado, fecha
+            );
+
+            if (!valido) return;
+
+            mdlpersonal insertar = new mdlpersonal();
+            crtpersonal execute = new crtpersonal();
+
+            insertar.setNombre(nombre);
+            insertar.setPaterno(paterno);
+            insertar.setMaterno(materno);
+            insertar.setCedulaidentidad(ci);
+            insertar.setTelefono(tel);
+            insertar.setDireccion(dir);
+            insertar.setEstado(estado);
+            insertar.setFechaingreso(Date.valueOf(fIng));
+            insertar.setTipperonal(tipo);
+            insertar.setUsuario(usuario);
+            insertar.setPassword(pass);
+
+            execute.guardarPersonal(insertar);
+
+            // cerrar modal
+            Stage stage = (Stage) btnAceptar.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

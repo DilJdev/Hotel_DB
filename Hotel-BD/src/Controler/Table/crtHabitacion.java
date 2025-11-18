@@ -121,6 +121,20 @@ public class crtHabitacion {
         return lista;
     }
 
+    // Actualiza el estado de una habitación concreta
+    public boolean actualizarEstado(int numHabitacion, String estado) {
+        String sql = "UPDATE habitacion SET estado = ? WHERE numhabitacion = ?";
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, estado);
+            ps.setInt(2, numHabitacion);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar estado de habitación: " + e.getMessage());
+            return false;
+        }
+    }
+
     public double obtenerPrecioPorTipo(int idTipo) {
         double precio = 0.0;
         Connection con = Conexion.conectar();

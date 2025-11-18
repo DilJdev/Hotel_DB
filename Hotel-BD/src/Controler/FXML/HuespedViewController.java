@@ -10,7 +10,6 @@ import Model.mdlHuesped;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +54,8 @@ public class HuespedViewController implements Initializable {
     private Button btnnuevo;
     @FXML
     private TextField txtbuscar;
+    @FXML
+    private Button btnEditar;
 
     /**
      * Initializes the controller class.
@@ -91,7 +92,16 @@ public class HuespedViewController implements Initializable {
                 -> new SimpleStringProperty(cellData.getValue().getTelefono()));
         
         crtHuesped ver=new crtHuesped();
-        
+        tablaPersonal.setItems(ver.obtenerHuespedes());
+
+        // Habilitar botón Editar según selección
+        tablaPersonal.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            btnEditar.setDisable(newSel == null);
+        });
+    }
+
+    private void actualizarTabla() {
+        crtHuesped ver = new crtHuesped();
         tablaPersonal.setItems(ver.obtenerHuespedes());
     }
 
@@ -113,7 +123,7 @@ public class HuespedViewController implements Initializable {
 
             // Mostrar el modal y esperar a que se cierre
             modalStage.showAndWait();
-//             actualizarTabla();
+            actualizarTabla();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,6 +133,31 @@ public class HuespedViewController implements Initializable {
     private void buscar(KeyEvent event) {
         crtHuesped buscar=new crtHuesped();
         tablaPersonal.setItems(buscar.buscarHuespedes(txtbuscar.getText()));
+    }
+
+    @FXML
+    private void editarHuesped(ActionEvent event) {
+        mdlHuesped seleccionado = tablaPersonal.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) return;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/modales/EditarHuespedMod.fxml"));
+            Parent root = loader.load();
+
+            EditarHuespedModController controller = loader.getController();
+            controller.setHuespedSeleccionado(seleccionado);
+
+            Stage modalStage = new Stage();
+            modalStage.setTitle("Editar Huésped");
+            modalStage.setScene(new Scene(root));
+            modalStage.initModality(Modality.WINDOW_MODAL);
+            modalStage.initOwner(btnEditar.getScene().getWindow());
+            modalStage.showAndWait();
+
+            actualizarTabla();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXML.EditarHospedajeModController">
+   <children>
+      <VBox layoutX="25.0" layoutY="25.0" prefHeight="350.0" prefWidth="450.0" spacing="20.0">
+         <children>
+            <Label text="Editar Hospedaje" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            
+            <VBox spacing="10.0">
+               <children>
+                  <Label text="Nombre del Huésped:" style="-fx-font-size: 12px; -fx-text-fill: #555;" />
+                  <TextField fx:id="txtNombreHuesped" prefHeight="35.0" prefWidth="400.0" styleClass="field-form" stylesheets="@../assets/styles/dashboard.css" />
+               </children>
+            </VBox>
+            
+            <HBox spacing="20.0">
+               <children>
+                  <VBox prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Fecha Inicio:" style="-fx-font-size: 12px; -fx-text-fill: #555;" />
+                        <DatePicker fx:id="dpFechaInicio" prefHeight="35.0" prefWidth="200.0" styleClass="field-form" stylesheets="@../assets/styles/dashboard.css" />
+                     </children>
+                  </VBox>
+                  <VBox prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label text="Fecha Fin:" style="-fx-font-size: 12px; -fx-text-fill: #555;" />
+                        <DatePicker fx:id="dpFechaFin" prefHeight="35.0" prefWidth="200.0" styleClass="field-form" stylesheets="@../assets/styles/dashboard.css" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            
+            <VBox spacing="10.0">
+               <children>
+                  <Label text="Habitación:" style="-fx-font-size: 12px; -fx-text-fill: #555;" />
+                  <ComboBox fx:id="cbHabitacion" prefHeight="35.0" prefWidth="400.0" styleClass="field-form" stylesheets="@../assets/styles/dashboard.css" />
+               </children>
+            </VBox>
+            
+            <HBox layoutX="10.0" layoutY="290.0" spacing="20.0" alignment="CENTER">
+               <children>
+                  <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="40.0" prefWidth="120.0" styleClass="btn-guardar" stylesheets="@../assets/styles/dashboard.css" text="💾 Guardar" />
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarHospedaje" prefHeight="40.0" prefWidth="120.0" styleClass="btn-eliminar" stylesheets="@../assets/styles/dashboard.css" text="🗑️ Eliminar" />
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" prefHeight="40.0" prefWidth="120.0" styleClass="btn-cancelar" stylesheets="@../assets/styles/dashboard.css" text="❌ Cancelar" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

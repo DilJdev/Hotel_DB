@@ -21,6 +21,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import utils.GlobalUI;
 
 /**
  * FXML Controller class
@@ -69,6 +71,11 @@ public class NuevoHuespedModController implements Initializable {
     private TextField txtpro;
     @FXML
     private AnchorPane panelAñadir2;
+    
+    @FXML
+    private AnchorPane anchorPane;
+
+    private GlobalUI globalUI;
 
     /**
      * Initializes the controller class.
@@ -82,8 +89,9 @@ public class NuevoHuespedModController implements Initializable {
         cbtipo.getItems().addAll("Nacional", "Extranjero");
         
         cbprofesion.setItems(ver.obtenerProfesion());
-        
-       
+        soltero.setSelected(true);
+        globalUI = new GlobalUI();
+        globalUI.AjustarTamano2(anchorPane);
     }    
 
     @FXML
@@ -107,35 +115,72 @@ public class NuevoHuespedModController implements Initializable {
 
     @FXML
     private void insertar(ActionEvent event) {
-        mdlHuesped  ver=new mdlHuesped();
-        crtHuesped añadirnuevo=new crtHuesped();
-        
-        ver.setNombre(txtNombre.getText());
-        ver.setPaterno(txtpaterno.getText());
-        ver.setMaterno(txtMaterno.getText());
-        ver.setCedula(txtci.getText());
-        ver.setFechanac(Date.valueOf(datef.getValue()));
-        ver.setDireccion(txtdir.getText());
-        ver.settHuesped(cbtipo.getSelectionModel().getSelectedItem());
-        if(civil.getSelectedToggle()==soltero){
-            ver.setEstadocivil("Soltero");
-        }else if (civil.getSelectedToggle()==casado) {
-            ver.setEstadocivil("Casado");
+        try {
+            String estadoCivil = civil.getSelectedToggle() == soltero ? "Soltero" :
+                                (civil.getSelectedToggle() == casado ? "Casado" : "");
+
+            boolean valido = globalUI.validarCamposHuesped(
+                    txtNombre.getText(),
+                    txtpaterno.getText(),
+                    txtMaterno.getText(),
+                    txtci.getText(),
+                    datef.getValue(),
+                    txttel.getText(),
+                    cbtipo.getSelectionModel().getSelectedItem(),
+                    estadoCivil
+            );
+
+            globalUI.marcarErroresHuesped(
+                    txtNombre.getText(),
+                    txtpaterno.getText(),
+                    txtMaterno.getText(),
+                    txtci.getText(),
+                    datef.getValue(),
+                    txttel.getText(),
+                    cbtipo.getSelectionModel().getSelectedItem(),
+                    estadoCivil,
+                    txtNombre,
+                    txtpaterno,
+                    txtMaterno,
+                    txtci,
+                    datef,
+                    txttel,
+                    cbtipo,
+                    civil
+            );
+            if (!valido) return;
+
+            mdlHuesped ver = new mdlHuesped();
+            crtHuesped añadirnuevo = new crtHuesped();
+
+            ver.setNombre(txtNombre.getText());
+            ver.setPaterno(txtpaterno.getText());
+            ver.setMaterno(txtMaterno.getText());
+            ver.setCedula(txtci.getText());
+            ver.setFechanac(Date.valueOf(datef.getValue()));
+            ver.setDireccion(txtdir.getText());
+            ver.settHuesped(cbtipo.getSelectionModel().getSelectedItem());
+            ver.setTelefono(txttel.getText());
+            ver.setEstadocivil(estadoCivil);
+            ver.setIdprocedencia(cbprocedencia.getSelectionModel().getSelectedIndex()+1);
+            ver.setIdprofesion(cbprofesion.getSelectionModel().getSelectedIndex()+1);
+
+            añadirnuevo.insertarHuesped(ver);
+
+            // Cerrar modal
+            Stage stage = (Stage) txtNombre.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        ver.setIdprocedencia(cbprocedencia.getSelectionModel().getSelectedIndex()+1);
-        ver.setIdprofesion(cbprofesion.getSelectionModel().getSelectedIndex()+1);
-        
-        
-        añadirnuevo.insertarHuesped(ver);
     }
 
     @FXML
     private void verañadir2(ActionEvent event) {
         if(btnmas2.isSelected()){
-            panelAñadir.setVisible(true);
+            panelAñadir2.setVisible(true);
         }else{
-            panelAñadir.setVisible(false);
+            panelAñadir2.setVisible(false);
         }
     }
 
@@ -144,7 +189,7 @@ public class NuevoHuespedModController implements Initializable {
          crtPais añadir=new crtPais();
         
         añadir.insertarProcedencia(txtpro.getText(), cbpais.getSelectionModel().getSelectedIndex()+1);
-        panelAñadir.setVisible(false);
+        panelAñadir2.setVisible(false);
         
     }
 

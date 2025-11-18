@@ -2,39 +2,186 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="700.0" maxWidth="900.0" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXML.DashboardController">
+<AnchorPane fx:id="rootPane" maxHeight="700.0" maxWidth="900.0" minHeight="700.0" minWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXML.DashboardController">
    <children>
       <AnchorPane fx:id="menupane" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" styleClass="men" stylesheets="@../assets/styles/dashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button layoutX="30.0" layoutY="147.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="🏠 Dashboard" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <Button layoutY="179.0" mnemonicParsing="false" onAction="#showpanelhuesped" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="👥 Huesped" />
-            <Button layoutY="211.0" mnemonicParsing="false" onAction="#showPanelHabitacion" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="🛏 Habitaciones" />
-            <Button layoutY="243.0" mnemonicParsing="false" onAction="#showpanelhospedaje" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="📝 Hospedaje" />
-            <Button layoutY="275.0" mnemonicParsing="false" onAction="#showPanelPersonal" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="👤 Personal" />
+            <VBox spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label text="🏨" styleClass="menu_icono" stylesheets="@../assets/styles/dashboard.css" alignment="CENTER" />
+                  <Label fx:id="lblUsuario" text="Usuario" styleClass="menu_usuario" stylesheets="@../assets/styles/dashboard.css" alignment="CENTER" />
+               </children>
+            </VBox>
+            <Button layoutY="120.0" mnemonicParsing="false" onAction="#reabrirDashboard" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="🏠 Dashboard" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button layoutY="152.0" mnemonicParsing="false" onAction="#showpanelhuesped" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="👥 Huesped" />
+            <Button layoutY="184.0" mnemonicParsing="false" onAction="#showPanelHabitacion" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="🛏 Habitaciones" />
+            <Button layoutY="216.0" mnemonicParsing="false" onAction="#showPanelPersonal" prefHeight="32.0" prefWidth="200.0" styleClass="menu_opciones" stylesheets="@../assets/styles/dashboard.css" text="👤 Personal" />
             <Button fx:id="btnCerrarSesion" layoutY="554.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="48.0" prefWidth="200.0" styleClass="menu_cerrar" stylesheets="@../assets/styles/dashboard.css" text="↩ Cerrar Sesion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="panelesContainer" layoutX="200.0" layoutY="15.0" prefHeight="109.0" prefWidth="95.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
-            <Label layoutX="25.0" layoutY="38.0" text="Bienvenido al sistema" />
-            <AnchorPane layoutX="25.0" layoutY="74.0" maxHeight="100.0" maxWidth="200.0" minHeight="100.0" minWidth="200.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+            <Label layoutX="25.0" layoutY="20.0" text="Bienvenido al sistema" styleClass="titulo-bienvenida" stylesheets="@../assets/styles/dashboard.css">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            
+            <!-- Contenedor de Cards -->
+            <HBox layoutX="25.0" layoutY="80.0" prefHeight="120.0" spacing="15.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
                <children>
-                  <Label layoutX="8.0" layoutY="14.0" text="Huespedes" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0" />
-                  <Label fx:id="lblHuespedes" layoutX="31.0" layoutY="44.0" prefHeight="42.0" prefWidth="48.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="20.0" />
+                  <!-- Card Huéspedes -->
+                  <VBox prefHeight="120.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="👥" styleClass="card-icon" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblHuespedes" text="0" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label text="Huéspedes Registrados" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  
+                  <!-- Card Habitaciones Disponibles -->
+                  <VBox prefHeight="120.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="🛏️" styleClass="card-icon" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblhabitacionesLibres" text="0" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label text="Habitaciones Disponibles" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  
+                  <!-- Card Habitaciones Ocupadas -->
+                  <VBox prefHeight="120.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="🔒" styleClass="card-icon" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblhabitacionesOcupadas" text="0" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label text="Habitaciones Ocupadas" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  
+                  <!-- Card Personal Activo -->
+                  <VBox prefHeight="120.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="👤" styleClass="card-icon" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblPersonalActivo" text="0" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label text="Personal Activo" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
-            </AnchorPane>
-            <AnchorPane layoutX="245.0" layoutY="80.0" maxHeight="100.0" maxWidth="200.0" minHeight="100.0" minWidth="200.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="80.0">
+            </HBox>
+            
+            <!-- Botón Nuevo Hospedaje -->
+            <Button layoutX="750.0" layoutY="20.0" mnemonicParsing="false" onAction="#abrirNuevoHospedaje" prefHeight="40.0" prefWidth="120.0" styleClass="btn-nuevo-hospedaje" stylesheets="@../assets/styles/dashboard.css" text="➕ Nuevo Hospedaje" AnchorPane.rightAnchor="25.0" />
+            
+            <!-- Zona principal: tabla de hospedajes + detalles -->
+            <HBox layoutX="25.0" layoutY="220.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="220.0">
                <children>
-                  <Label layoutX="37.0" layoutY="14.0" text="Habitaciones Libres" />
-                  <Label fx:id="lblhl" layoutX="119.0" layoutY="44.0" prefHeight="42.0" prefWidth="48.0" />
-               </children></AnchorPane>
-            <AnchorPane layoutX="255.0" layoutY="90.0" maxHeight="100.0" maxWidth="200.0" minHeight="100.0" minWidth="200.0" styleClass="card" stylesheets="@../assets/styles/dashboard.css" AnchorPane.leftAnchor="460.0" AnchorPane.topAnchor="80.0" />
-            <HBox layoutY="180.0" prefHeight="40.0" prefWidth="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="180.0" />
-         </children></AnchorPane>
+                  <!-- Tabla de Huéspedes y Habitaciones (ancho fijo para mostrar todas las columnas) -->
+                  <VBox prefHeight="400.0" prefWidth="460.0">
+                     <children>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                           <children>
+                              <TextField fx:id="txtBuscarHuesped" prefHeight="30.0" prefWidth="200.0" promptText="Buscar huésped..." styleClass="field-busqueda" stylesheets="@../assets/styles/dashboard.css" />
+                              <Button fx:id="btnEditarHospedaje" mnemonicParsing="false" onAction="#editarHospedaje" prefHeight="30.0" prefWidth="80.0" styleClass="btn-editar" stylesheets="@../assets/styles/dashboard.css" text="✏️ Editar" disable="true" />
+                           </children>
+                        </HBox>
+                        <Label text="Hospedajes Activos" styleClass="titulo-tabla" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tablaHospedajes" prefHeight="280.0" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colNombreHuesped" prefWidth="200.0" text="Huésped" />
+                              <TableColumn fx:id="colNumHabitacion" prefWidth="120.0" text="Habitación" />
+                              <TableColumn fx:id="colTipoHabitacion" prefWidth="130.0" text="Tipo" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+
+                  <!-- Panel de detalles del hospedaje seleccionado y acción de liberar habitación (ocupa el resto del ancho) -->
+                  <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Detalles del Hospedaje" styleClass="titulo-tabla" stylesheets="@../assets/styles/dashboard.css">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Huésped:" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label fx:id="lblDetNombre" text="-" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label text="Habitación:" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label fx:id="lblDetHabitacion" text="-" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label text="Tipo:" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label fx:id="lblDetTipo" text="-" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label text="Fecha ingreso:" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label fx:id="lblDetFechaIngreso" text="-" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label text="Fecha salida:" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label fx:id="lblDetFechaSalida" text="-" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label text="Noches totales:" styleClass="card-title" stylesheets="@../assets/styles/dashboard.css" />
+                        <Label fx:id="lblDetNoches" text="-" styleClass="card-number" stylesheets="@../assets/styles/dashboard.css" />
+                        <Button fx:id="btnLiberarHabitacion" mnemonicParsing="false" onAction="#liberarHabitacion" prefHeight="32.0" prefWidth="180.0" styleClass="btn-editar" stylesheets="@../assets/styles/dashboard.css" text="✅ Marcar habitación libre" disable="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
       <Label fx:id="lblsucceful" layoutX="522.0" layoutY="528.0" prefHeight="42.0" prefWidth="354.0" styleClass="cbd_succeful" stylesheets="@../assets/styles/dashboard.css" text="Conexion a la base de Datos Exitosa" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Label fx:id="lblerror" layoutX="542.0" layoutY="556.0" prefHeight="42.0" prefWidth="354.0" styleClass="cbd_error" stylesheets="@../assets/styles/dashboard.css" text="Error al intentar conectar a la base de datos" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <AnchorPane fx:id="bar" prefHeight="30.0" prefWidth="700.0" AnchorPane.bottomAnchor="670.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

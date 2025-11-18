@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controler.FXML.EditarHuespedModController">
+    <children>
+        <Label layoutX="35.0" layoutY="20.0" text="Editar Huésped" />
+
+        <Label layoutX="14.0" layoutY="60.0" text="Nombre" />
+        <TextField fx:id="txtNombre" layoutX="10.0" layoutY="80.0" prefHeight="25.0" prefWidth="260.0" promptText="Nombre(s)" />
+
+        <Label layoutX="310.0" layoutY="60.0" text="Apellido Paterno" />
+        <TextField fx:id="txtPaterno" layoutX="310.0" layoutY="80.0" prefHeight="25.0" prefWidth="260.0" promptText="Apellido paterno" />
+
+        <Label layoutX="14.0" layoutY="115.0" text="Apellido Materno" />
+        <TextField fx:id="txtMaterno" layoutX="10.0" layoutY="135.0" prefHeight="25.0" prefWidth="260.0" promptText="Apellido materno" />
+
+        <Label layoutX="310.0" layoutY="115.0" text="Carnet de Identidad" />
+        <TextField fx:id="txtCi" layoutX="310.0" layoutY="135.0" prefHeight="25.0" prefWidth="260.0" promptText="CI" />
+
+        <Label layoutX="14.0" layoutY="170.0" text="Fecha de Nacimiento" />
+        <DatePicker fx:id="dateNacimiento" layoutX="10.0" layoutY="190.0" />
+
+        <Label layoutX="310.0" layoutY="170.0" text="Teléfono" />
+        <TextField fx:id="txtTelefono" layoutX="310.0" layoutY="190.0" prefHeight="25.0" prefWidth="260.0" promptText="Teléfono" />
+
+        <Label layoutX="14.0" layoutY="225.0" text="Dirección" />
+        <TextField fx:id="txtDireccion" layoutX="10.0" layoutY="245.0" prefHeight="25.0" prefWidth="560.0" promptText="Dirección" />
+
+        <Label layoutX="14.0" layoutY="280.0" text="Tipo de Huésped" />
+        <ComboBox fx:id="cbTipo" layoutX="10.0" layoutY="300.0" prefHeight="25.0" prefWidth="180.0" />
+
+        <Label layoutX="210.0" layoutY="280.0" text="Estado Civil" />
+        <RadioButton fx:id="rbSoltero" layoutX="210.0" layoutY="302.0" text="Soltero" toggleGroup="$civil" />
+        <RadioButton fx:id="rbCasado" layoutX="290.0" layoutY="302.0" text="Casado" toggleGroup="$civil" />
+
+        <Button fx:id="btnGuardar" layoutX="370.0" layoutY="440.0" text="Guardar" onAction="#guardar" />
+        <Button fx:id="btnEliminar" layoutX="280.0" layoutY="440.0" text="Eliminar" onAction="#eliminar" />
+        <Button fx:id="btnCancelar" layoutX="480.0" layoutY="440.0" text="Cancelar" onAction="#cancelar" />
+    </children>
+</AnchorPane>

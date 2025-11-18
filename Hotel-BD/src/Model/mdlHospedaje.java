@@ -19,6 +19,7 @@ public class mdlHospedaje {
     public Double total;
     public int idpersonal;
     public int idnumh;
+    public int idhospedaje;
 
     public mdlHospedaje() {
     }
@@ -87,6 +88,14 @@ public class mdlHospedaje {
 
     public void setIdnumh(int idnumh) {
         this.idnumh = idnumh;
+    }
+    
+    public int getIdhospedaje() {
+        return idhospedaje;
+    }
+
+    public void setIdhospedaje(int idhospedaje) {
+        this.idhospedaje = idhospedaje;
     }
     
     

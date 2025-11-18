@@ -44,6 +44,20 @@
     -fx-background-color: #b02a37;
 }
 
+/* Icono del menú */
+.menu_icono {
+    -fx-font-size: 32px;
+    -fx-text-fill: #ffffff;
+}
+
+/* Nombre de usuario en el menú */
+.menu_usuario {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 5 0;
+}
+
 /* Panel superior (barra con título del sistema) */
 .panel_superior {
     -fx-background-color: #ffffff;
@@ -57,6 +71,12 @@
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #0b0c25;
+}
+
+.card:hover .card-number {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2980b9;
 }
 
 /* Botón de menú (mostrar/ocultar) */
@@ -112,5 +132,204 @@
     -fx-scale-y: 1.03;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.35), 12, 0, 3, 3); /* Sombra más marcada */
     -fx-cursor: hand;     /* Cursor tipo mano */
+}
+
+/* Estilos para elementos de las cards */
+.titulo-bienvenida {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.card-icon {
+    -fx-alignment: center;
+    -fx-text-fill: #3498db;
+}
+
+.card-number {
+    -fx-alignment: center;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.card-title {
+    -fx-alignment: center;
+    -fx-text-fill: #7f8c8d;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-wrap-text: true;
+}
+
+/* Estilos para botón flotante */
+.btn-flotante {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 3);
+}
+
+.btn-flotante:hover {
+    -fx-background-color: #2980b9;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+/* Estilos para botón Nuevo Hospedaje */
+.btn-nuevo-hospedaje {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+}
+
+.btn-nuevo-hospedaje:hover {
+    -fx-background-color: #45a049;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Estilos para campo de búsqueda */
+.field-busqueda {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 12px;
+    -fx-prompt-text-fill: #999;
+}
+
+.field-busqueda:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 5, 0, 0, 0);
+}
+
+/* Botón Editar */
+.btn-editar {
+    -fx-background-color: #f39c12;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.btn-editar:hover {
+    -fx-background-color: #e67e22;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.btn-editar:disabled {
+    -fx-background-color: #bdc3c7;
+    -fx-cursor: default;
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+}
+
+/* Estilos para botones del modal */
+.btn-guardar {
+    -fx-background-color: #27ae60;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.btn-guardar:hover {
+    -fx-background-color: #229954;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.btn-eliminar {
+    -fx-background-color: #e74c3c;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.btn-eliminar:hover {
+    -fx-background-color: #c0392b;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.btn-cancelar {
+    -fx-background-color: #95a5a6;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.btn-cancelar:hover {
+    -fx-background-color: #7f8c8d;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.field-form {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 12px;
+}
+
+.field-form:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 5, 0, 0, 0);
+}
+
+/* Estilos para tabla de hospedajes */
+.titulo-tabla {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-padding: 10px 0 5px 0;
+}
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #34495e;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-padding: 8px;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #e3f2fd;
+    -fx-text-fill: #1976d2;
 }
 

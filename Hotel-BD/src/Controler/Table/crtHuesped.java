@@ -137,6 +137,43 @@ public class crtHuesped {
     return lista; // Devolvemos el ObservableList filtrado
 }
 
+    // Actualiza los datos básicos de un huésped usando el CI original como identificador
+    public boolean actualizarHuesped(mdlHuesped modelo, String ciOriginal) {
+        String sql = "UPDATE huesped SET nombre = ?, paterno = ?, materno = ?, direccion = ?, fechanacimiento = ?, telefono = ?, estadocivil = ?, tipohuesped = ?, cedulaidentidad = ? WHERE cedulaidentidad = ?";
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, modelo.getNombre());
+            ps.setString(2, modelo.getPaterno());
+            ps.setString(3, modelo.getMaterno());
+            ps.setString(4, modelo.getDireccion());
+            ps.setDate(5, modelo.getFechanac());
+            ps.setString(6, modelo.getTelefono());
+            ps.setString(7, modelo.getEstadocivil());
+            ps.setString(8, modelo.gettHuesped());
+            ps.setString(9, modelo.getCedula());      // nuevo CI (puede cambiar)
+            ps.setString(10, ciOriginal);             // CI original en el WHERE
+            int filas = ps.executeUpdate();
+            return filas > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar huésped: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Elimina un huésped por su CI
+    public boolean eliminarHuespedPorCedula(String ci) {
+        String sql = "DELETE FROM huesped WHERE cedulaidentidad = ?";
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, ci);
+            int filas = ps.executeUpdate();
+            return filas > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar huésped: " + e.getMessage());
+            return false;
+        }
+    }
+
     public ObservableList<String> obtenerNombresHuesped() {
     ObservableList<String> lista = FXCollections.observableArrayList();
     String sql = "SELECT nombre FROM huesped";
@@ -176,67 +213,87 @@ public class crtHuesped {
     
     return id;
 }
+
+   // Actualiza el nombre del huésped asociado a un hospedaje concreto
+   public boolean actualizarNombrePorIdHospedaje(int idHospedaje, String nuevoNombre) {
+       String sql = "UPDATE huesped h " +
+                    "INNER JOIN hospedajehuesped hh ON h.ididentificacionhuesped = hh.idhuesped " +
+                    "SET h.nombre = ? " +
+                    "WHERE hh.idhospedaje = ?";
+       try (Connection con = Conexion.conectar();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+           ps.setString(1, nuevoNombre);
+           ps.setInt(2, idHospedaje);
+           int filas = ps.executeUpdate();
+           return filas > 0;
+       } catch (SQLException e) {
+           System.out.println("Error al actualizar nombre de huésped: " + e.getMessage());
+           return false;
+       }
+   }
    
    public ObservableList<HuespedHospedaje> obtenerHuespedesConHospedajes() {
-    ObservableList<HuespedHospedaje> lista = FXCollections.observableArrayList();
-    String sql = "SELECT h.nombre, th.descripcionhabitacion, hab.numhabitacion " +
-                 "FROM huesped h " +
-                 "INNER JOIN hospedajehuesped hh ON h.ididentificacionhuesped = hh.idhuesped " +
-                 "INNER JOIN hospedaje hos ON hh.idhospedaje = hos.idhospedaje " +
-                 "INNER JOIN habitacion hab ON hos.numhabitacion = hab.numhabitacion " +
-                 "INNER JOIN tipohabitacion th ON hab.idtipohabitacion = th.idtipohabitacion";
-    
-    try (Connection con = Conexion.conectar();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        
-        while (rs.next()) {
-            HuespedHospedaje item = new HuespedHospedaje(
-                rs.getString("nombre"),
-                rs.getString("descripcionhabitacion"),
-                rs.getInt("numhabitacion")
-            );
-            lista.add(item);
-        }
-        System.out.println("Datos cargados correctamente");
-        
-    } catch (SQLException e) {
-        System.out.println("Error al cargar datos: " + e.getMessage());
-    }
-    
-    return lista;
+   ObservableList<HuespedHospedaje> lista = FXCollections.observableArrayList();
+   String sql = "SELECT h.nombre, th.descripcionhabitacion, hab.numhabitacion, hos.idhospedaje " +
+                "FROM huesped h " +
+                "INNER JOIN hospedajehuesped hh ON h.ididentificacionhuesped = hh.idhuesped " +
+                "INNER JOIN hospedaje hos ON hh.idhospedaje = hos.idhospedaje " +
+                "INNER JOIN habitacion hab ON hos.numhabitacion = hab.numhabitacion " +
+                "INNER JOIN tipohabitacion th ON hab.idtipohabitacion = th.idtipohabitacion";
+   
+   try (Connection con = Conexion.conectar();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery()) {
+       
+       while (rs.next()) {
+           HuespedHospedaje item = new HuespedHospedaje(
+               rs.getString("nombre"),
+               rs.getString("descripcionhabitacion"),
+               rs.getInt("numhabitacion"),
+               rs.getInt("idhospedaje")
+           );
+           lista.add(item);
+       }
+       System.out.println("Datos cargados correctamente");
+       
+   } catch (SQLException e) {
+       System.out.println("Error al cargar datos: " + e.getMessage());
+   }
+   
+   return lista;
 }
    
    public ObservableList<HuespedHospedaje> filtrarHuespedesPorNombre(String nombre) {
-    ObservableList<HuespedHospedaje> lista = FXCollections.observableArrayList();
-    String sql = "SELECT h.nombre, th.descripcionhabitacion, hab.numhabitacion " +
-                 "FROM huesped h " +
-                 "INNER JOIN hospedajehuesped hh ON h.ididentificacionhuesped = hh.idhuesped " +
-                 "INNER JOIN hospedaje hos ON hh.idhospedaje = hos.idhospedaje " +
-                 "INNER JOIN habitacion hab ON hos.numhabitacion = hab.numhabitacion " +
-                 "INNER JOIN tipohabitacion th ON hab.idtipohabitacion = th.idtipohabitacion " +
-                 "WHERE h.nombre LIKE ?";
-    
-    try (Connection con = Conexion.conectar();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        
-        ps.setString(1, "%" + nombre + "%");
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            HuespedHospedaje item = new HuespedHospedaje(
-                rs.getString("nombre"),
-                rs.getString("descripcionhabitacion"),
-                rs.getInt("numhabitacion")
-            );
-            lista.add(item);
-        }
-        
-    } catch (SQLException e) {
-        System.out.println("Error al filtrar: " + e.getMessage());
-    }
-    
-    return lista;
+   ObservableList<HuespedHospedaje> lista = FXCollections.observableArrayList();
+   String sql = "SELECT h.nombre, th.descripcionhabitacion, hab.numhabitacion, hos.idhospedaje " +
+                "FROM huesped h " +
+                "INNER JOIN hospedajehuesped hh ON h.ididentificacionhuesped = hh.idhuesped " +
+                "INNER JOIN hospedaje hos ON hh.idhospedaje = hos.idhospedaje " +
+                "INNER JOIN habitacion hab ON hos.numhabitacion = hab.numhabitacion " +
+                "INNER JOIN tipohabitacion th ON hab.idtipohabitacion = th.idtipohabitacion " +
+                "WHERE h.nombre LIKE ?";
+   
+   try (Connection con = Conexion.conectar();
+        PreparedStatement ps = con.prepareStatement(sql)) {
+       
+       ps.setString(1, "%" + nombre + "%");
+       ResultSet rs = ps.executeQuery();
+       
+       while (rs.next()) {
+           HuespedHospedaje item = new HuespedHospedaje(
+               rs.getString("nombre"),
+               rs.getString("descripcionhabitacion"),
+               rs.getInt("numhabitacion"),
+               rs.getInt("idhospedaje")
+           );
+           lista.add(item);
+       }
+       
+   } catch (SQLException e) {
+       System.out.println("Error al filtrar: " + e.getMessage());
+   }
+   
+   return lista;
 }
    
    public boolean eliminarHuespedHospedaje(String nombre, int numHabitacion) {

@@ -1,88 +1,99 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controler.Table;
 
+import java.sql.*;
 import Model.mdlHospedaje;
-import com.mysql.jdbc.Connection;
 import hotel.bd.Conexion;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-/**
- *
- * @author Usuario
- */
 public class crtHospedaje {
-
-public void añadirHospedaje(mdlHospedaje hospedaje) {
-    String sql = "INSERT INTO hospedaje (fechaingreso, fechasalida, horaingreso, horasalida, importetotal, idpersonal, numhabitacion) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private Connection conexion;
     
-    try (Connection con = Conexion.conectar();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        
-        ps.setDate(1, hospedaje.getFechaingreso());
-        if (hospedaje.getFechasalida() != null) {
-            ps.setDate(2, hospedaje.getFechasalida());
-        } else {
-            ps.setNull(2, java.sql.Types.DATE);
-        }
-        ps.setString(3, hospedaje.getHoraingreso());
-        ps.setString(4, hospedaje.getHorasalida() != null ? hospedaje.getHorasalida() : null);
-        ps.setDouble(5, hospedaje.getTotal());
-        ps.setInt(6, hospedaje.getIdpersonal());
-        ps.setInt(7, hospedaje.getIdnumh());
-        
-        int filas = ps.executeUpdate();
-        if (filas > 0) {
-            System.out.println("Hospedaje insertado correctamente");
-        }
-        
+    public crtHospedaje() {
+        conexion = Conexion.conectar();
+    }
+    
+    public void añadirHospedaje(mdlHospedaje hospedaje) {
+    String sql = "INSERT INTO hospedaje (fechaingreso, fechasalida, horaingreso, horasalida, idpersonal, numhabitacion) VALUES (?, ?, ?, ?, ?, ?)";
+    try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+        stmt.setDate(1, new java.sql.Date(hospedaje.getFechaingreso().getTime()));
+        stmt.setDate(2, hospedaje.getFechasalida() != null ? new java.sql.Date(hospedaje.getFechasalida().getTime()) : null);
+        stmt.setString(3, hospedaje.getHoraingreso());
+        stmt.setString(4, hospedaje.getHorasalida());
+        stmt.setInt(5, hospedaje.getIdpersonal());
+        stmt.setInt(6, hospedaje.getIdnumh());   // campo Java, columna numhabitacion
+        stmt.executeUpdate();
     } catch (SQLException e) {
-        System.out.println("Error al insertar hospedaje: " + e.getMessage());
+        e.printStackTrace();
     }
 }
+    
+  public void actualizarHospedaje(mdlHospedaje hospedaje) {
+    String sql = "UPDATE hospedaje SET fechaingreso = ?, fechasalida = ?, horaingreso = ?, horasalida = ?, idpersonal = ?, numhabitacion = ? WHERE idhospedaje = ?";
+    try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+        stmt.setDate(1, new java.sql.Date(hospedaje.getFechaingreso().getTime()));
+        stmt.setDate(2, hospedaje.getFechasalida() != null ? new java.sql.Date(hospedaje.getFechasalida().getTime()) : null);
+        stmt.setString(3, hospedaje.getHoraingreso());
+        stmt.setString(4, hospedaje.getHorasalida());
+        stmt.setInt(5, hospedaje.getIdpersonal());
+        stmt.setInt(6, hospedaje.getIdnumh());   // campo Java
+        stmt.setInt(7, hospedaje.getIdhospedaje());
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    
+    public void eliminarHospedaje(int idHospedaje) {
+        String sql = "DELETE FROM hospedaje WHERE idhospedaje = ?";
+        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, idHospedaje);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void eliminarHospedajeHuesped(int idHospedaje) {
+        String sql = "DELETE FROM hospedajehuesped WHERE idhospedaje = ?";
+        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, idHospedaje);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void eliminarHospedajeCompleto(int idHospedaje) {
+        try {
+            // Primero eliminar las relaciones con huéspedes
+            eliminarHospedajeHuesped(idHospedaje);
+            // Luego eliminar el hospedaje
+            eliminarHospedaje(idHospedaje);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     public int obtenerUltimoIdHospedaje() {
-    int id = 0;
-    String sql = "SELECT MAX(idhospedaje) as ultimo_id FROM hospedaje";
-    
-    try (Connection con = Conexion.conectar();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        
-        if (rs.next()) {
-            id = rs.getInt("ultimo_id");
+        String sql = "SELECT MAX(idhospedaje) FROM hospedaje";
+        try (Statement stmt = conexion.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        
-    } catch (SQLException e) {
-        System.out.println("Error al obtener último ID: " + e.getMessage());
+        return 0;
     }
     
-    return id;
-}
-
-public void insertarHospedajeHuesped(int idHospedaje, int idHuesped) {
-    String sql = "INSERT INTO hospedajehuesped (idhospedaje, idhuesped) VALUES (?, ?)";
-    
-    try (Connection con = Conexion.conectar();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        
-        ps.setInt(1, idHospedaje);
-        ps.setInt(2, idHuesped);
-        
-        int filas = ps.executeUpdate();
-        if (filas > 0) {
-            System.out.println("Huesped-Hospedaje insertado correctamente");
+    public void insertarHospedajeHuesped(int idHospedaje, int idHuesped) {
+        String sql = "INSERT INTO hospedajehuesped (idhospedaje, idhuesped) VALUES (?, ?)";
+        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, idHospedaje);
+            stmt.setInt(2, idHuesped);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        
-    } catch (SQLException e) {
-        System.out.println("Error al insertar huesped-hospedaje: " + e.getMessage());
     }
-}
-
 }

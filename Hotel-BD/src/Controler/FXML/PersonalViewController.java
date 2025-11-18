@@ -16,10 +16,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -52,29 +56,59 @@ public class PersonalViewController implements Initializable {
     private TableColumn<mdlpersonal, String> colTelefono;
     @FXML
     private TableColumn<mdlpersonal, String> colEstado;
+    @FXML
+    private TextField txtBuscarPersonal;
+    @FXML
+    private Button btnEditar;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mdlpersonal mostrar=new mdlpersonal();
-        crtpersonal crt=new crtpersonal();
-        
-         colID.setCellValueFactory(new PropertyValueFactory<>("idpersonal"));
-         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-         colCedula.setCellValueFactory(new PropertyValueFactory<>("cedulaidentidad"));
-         conPaterno.setCellValueFactory(new PropertyValueFactory<>("paterno"));
-         colMaterno.setCellValueFactory(new PropertyValueFactory<>("materno"));
-         colFecha.setCellValueFactory(new PropertyValueFactory<>("fechaingreso"));
-         colDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
-         colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-         
-         
-        
-        tablaPersonal.setItems(crt.mostrarPersonal());
+        colID.setCellValueFactory(new PropertyValueFactory<>("idpersonal"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colCedula.setCellValueFactory(new PropertyValueFactory<>("cedulaidentidad"));
+        conPaterno.setCellValueFactory(new PropertyValueFactory<>("paterno"));
+        colMaterno.setCellValueFactory(new PropertyValueFactory<>("materno"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("fechaingreso"));
+        colDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+
+        // Colores por estado
+        colEstado.setCellFactory(col -> new TableCell<mdlpersonal, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    if ("Activo".equalsIgnoreCase(item)) {
+                        setStyle("-fx-text-fill: green;");
+                    } else if ("Inactivo".equalsIgnoreCase(item)) {
+                        setStyle("-fx-text-fill: red;");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            }
+        });
+
+        actualizarTabla();
+
+        // Botón Editar habilitado según selección
+        tablaPersonal.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            btnEditar.setDisable(newSel == null);
+        });
     }    
+
+    private void actualizarTabla() {
+        crtpersonal crt = new crtpersonal();
+        tablaPersonal.setItems(crt.mostrarPersonal());
+    }
 
     @FXML
     private void abrirModal(ActionEvent event) {
@@ -94,10 +128,43 @@ public class PersonalViewController implements Initializable {
 
             // Mostrar el modal y esperar a que se cierre
             modalStage.showAndWait();
-//             actualizarTabla();
+            actualizarTabla();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscarPersonal.getText();
+        crtpersonal crt = new crtpersonal();
+        tablaPersonal.setItems(crt.buscarPersonal(filtro));
+    }
+
+    @FXML
+    private void editarPersonal(ActionEvent event) {
+        mdlpersonal seleccionado = tablaPersonal.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/modales/EditarPersonalMod.fxml"));
+            Parent root = loader.load();
+
+            EditarPersonalModController controller = loader.getController();
+            controller.setPersonalSeleccionado(seleccionado);
+
+            Stage modalStage = new Stage();
+            modalStage.setTitle("Editar Personal");
+            modalStage.setScene(new Scene(root));
+            modalStage.initModality(Modality.WINDOW_MODAL);
+            modalStage.initOwner(btnEditar.getScene().getWindow());
+
+            modalStage.showAndWait();
+            actualizarTabla();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

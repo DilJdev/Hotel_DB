@@ -3,6 +3,8 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +14,7 @@
         <URL value="@/assets/styles/habitacionview.css" />
     </stylesheets>
    <children>
-      <TableView fx:id="tablaPersonal" layoutY="55.0" minWidth="700.0" stylesheets="@../assets/styles/personalview.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
+      <TableView fx:id="tablaPersonal" layoutY="55.0" minWidth="700.0" stylesheets="@../assets/styles/personalview.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <columns>
             <TableColumn fx:id="colNumHabitacion" prefWidth="137.0" text="Numero de Habitacion" />
             <TableColumn fx:id="colEstado" prefWidth="137.0" text="Estado" />
@@ -24,5 +26,12 @@
       </TableView>
       <Button fx:id="btnNuevo" layoutX="556.0" layoutY="6.0" mnemonicParsing="false" onAction="#abrirModal" prefHeight="34.0" prefWidth="110.0" styleClass="btnNuevo" stylesheets="@../assets/styles/nuevopersonalmod.css" text="Agregar Nuevo" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <ComboBox fx:id="cbbuscar" layoutX="25.0" layoutY="27.0" onAction="#buscar" prefHeight="25.0" prefWidth="250.0" promptText="🔎 Filtrar Por Tipo" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Button fx:id="btnEditarHab" layoutX="290.0" layoutY="27.0" mnemonicParsing="false" onAction="#editarHabitacion" text="Editar" disable="true" AnchorPane.topAnchor="20.0" />
+
+      <!-- Filtros por estado -->
+      <RadioButton fx:id="rbEstadoTodos" layoutX="20.0" layoutY="55.0" mnemonicParsing="false" onAction="#filtrarEstado" selected="true" text="Todos" />
+      <RadioButton fx:id="rbEstadoLibre" layoutX="90.0" layoutY="55.0" mnemonicParsing="false" onAction="#filtrarEstado" text="Libre" />
+      <RadioButton fx:id="rbEstadoOcupado" layoutX="160.0" layoutY="55.0" mnemonicParsing="false" onAction="#filtrarEstado" text="Ocupado" />
+      <RadioButton fx:id="rbEstadoMantenimiento" layoutX="250.0" layoutY="55.0" mnemonicParsing="false" onAction="#filtrarEstado" text="Mantenimiento" />
    </children>
 </AnchorPane>

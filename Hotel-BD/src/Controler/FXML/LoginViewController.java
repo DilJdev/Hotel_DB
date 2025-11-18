@@ -53,17 +53,21 @@ public class LoginViewController implements Initializable {
         boolean isCorrect=system.validarLogin(txtusuario.getText(), txtcontra.getText(),txtusuario, txtcontra, mensaje);
         if(isCorrect==true){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Dashboard.fxml"));
-        Parent root = loader.load();
+            Parent root = loader.load();
 
-        // Crear nueva escena y stage
-        Stage nuevaVentana = new Stage();
-        nuevaVentana.setScene(new Scene(root));
-        nuevaVentana.setTitle("Menú Principal");
-        nuevaVentana.show();
+            // Pasar el usuario al Dashboard
+            DashboardController controller = loader.getController();
+            controller.setUsuarioLogin(txtusuario.getText());
 
-        // Cerrar la ventana actual (login)
-        Stage ventanaActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        ventanaActual.close();
+            // Crear nueva escena y stage
+            Stage nuevaVentana = new Stage();
+            nuevaVentana.setScene(new Scene(root));
+            nuevaVentana.setTitle("Menú Principal");
+            nuevaVentana.show();
+
+            // Cerrar la ventana actual (login)
+            Stage ventanaActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            ventanaActual.close();
         }
             
     }

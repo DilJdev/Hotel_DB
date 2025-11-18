@@ -25,6 +25,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField layoutX="14.0" layoutY="23.0" prefHeight="34.0" prefWidth="391.0" promptText="🔎 Buscar Por Nombre" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <TextField fx:id="txtBuscarPersonal" layoutX="14.0" layoutY="23.0" onKeyReleased="#buscar" prefHeight="34.0" prefWidth="300.0" promptText="🔎 Buscar Por Nombre o CI" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Button fx:id="btnEditar" layoutX="320.0" layoutY="23.0" mnemonicParsing="false" onAction="#editarPersonal" text="Editar" disable="true" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>

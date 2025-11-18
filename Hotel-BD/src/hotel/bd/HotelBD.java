@@ -25,10 +25,10 @@ public class HotelBD extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Connection conection = Conexion.conectar();
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Dashboard.fxml"));
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/LoginView.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        stage.setTitle("Login");
+        stage.setTitle("Sistema de Gestion PALACIO IMPERIAL");
         stage.show();
     }
 

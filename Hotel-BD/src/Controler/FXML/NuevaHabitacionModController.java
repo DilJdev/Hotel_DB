@@ -9,7 +9,6 @@ import Controler.Table.crtHabitacion;
 import Controler.Table.crtHuesped;
 import Controler.Table.crtTipoHabitacion;
 import Model.mdlHabitacion;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,6 +18,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import utils.GlobalUI;
 
 /**
  * FXML Controller class
@@ -38,6 +39,11 @@ public class NuevaHabitacionModController implements Initializable {
     private Label caps;
     @FXML
     private TextField txtnum;
+    
+    @FXML
+    private AnchorPane anchorPane;
+
+    private GlobalUI globalUI;
 
     /**
      * Initializes the controller class.
@@ -49,8 +55,8 @@ public class NuevaHabitacionModController implements Initializable {
         
         cbestado.getItems().clear();
         cbestado.getItems().addAll("Libre", "Mantenimiento");
-        
-        // TODO
+        globalUI = new GlobalUI();
+        globalUI.AjustarTamano2(anchorPane);
     }    
 
     @FXML
@@ -63,14 +69,29 @@ public class NuevaHabitacionModController implements Initializable {
 
     @FXML
     private void insertar(ActionEvent event) {
-        crtHabitacion controler=new crtHabitacion();
-        mdlHabitacion insertar=new mdlHabitacion();
-        
-        insertar.setEstado(cbestado.getSelectionModel().getSelectedItem());
-        insertar.setIdtipohabitacion(cbTipoH.getSelectionModel().getSelectedIndex()+1);
-        insertar.setNumhabitacion(Integer.valueOf(txtnum.getText()));
-        
-        controler.insertarHabitacion(insertar.getNumhabitacion(), insertar);
+        try {
+            String num = txtnum.getText();
+            String tipo = cbTipoH.getSelectionModel().getSelectedItem();
+
+            boolean valido = globalUI.validarCamposHabitacion(num, tipo);
+            globalUI.marcarErroresHabitacion(num, tipo, txtnum, cbTipoH);
+            if (!valido) return;
+
+            crtHabitacion controler = new crtHabitacion();
+            mdlHabitacion insertar = new mdlHabitacion();
+
+            insertar.setEstado(cbestado.getSelectionModel().getSelectedItem());
+            insertar.setIdtipohabitacion(cbTipoH.getSelectionModel().getSelectedIndex()+1);
+            insertar.setNumhabitacion(Integer.valueOf(num));
+
+            controler.insertarHabitacion(insertar.getNumhabitacion(), insertar);
+
+            // Cerrar modal
+            Stage stage = (Stage) txtnum.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }
